@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Test suite" >
+  <parameter name="UserName" value="admin@ecoos.co" />
+  <parameter name="Password" value="ecoos6" />
+ 
+  <test name="Login Test" >
+    <classes>
+      <class name="Test.LoginTest">
+      </class>
+    </classes>
+  </test>
+   <test name="CollectTest">
+     <classes>
+       <class name="Test.CollectTest"/>
+     </classes>
+   </test>
+</suite>
