@@ -9,10 +9,14 @@ public class CollectOperationTest extends BaseTest{
 	
 	
 	@Test
+	public void scrollDown(){
+	CollectOperation opertaion = new CollectOperation(driver);
+	opertaion.scrollDown(driver);
+	}
+	
+	@Test
 	public void CheckDP(){
 	CollectOperation opertaion = new CollectOperation(driver);
-	opertaion.scrollDown();
 	opertaion.CheckDP();
 	}
-
 }

@@ -24,14 +24,14 @@ public class SelectAsset {
 			System.out.println("All");
 		    WebElement SelectAll = driver.findElement(SelectAssetLocator.SelectAll);
 			SelectAll.click(); 
-			Actions.Wait(10);
+			Actions.Wait3(10);
 			List<WebElement> list = driver.findElements(By.tagName("input"));
 			for(WebElement ele:list.subList( 2, list.size() )){
 			   String className = ele.getAttribute("class");
 			   System.out.println(className);
 			  Assert.assertEquals(className, "ng-pristine ng-untouched ng-valid ng-not-empty", "pass");
 			}
-			Actions.Wait(10);
+			Actions.Wait3(10);
 		
 		
 		}catch(Exception ex)
@@ -48,10 +48,10 @@ public class SelectAsset {
 			System.out.println("Child");
 			WebElement SelectAll = driver.findElement(SelectAssetLocator.SelectAll);
 			SelectAll.click();
-			Actions.Wait(5);
+			Actions.Wait3(5);
 			WebElement childasset = driver.findElement(SelectAssetLocator.Childasset);
 		    childasset.click();
-		    Actions.Wait(5);
+		    Actions.Wait3(5);
 		    
 		   List<WebElement> parentasset = driver.findElements(By.tagName("input"));
 	    for(WebElement parent : parentasset.subList(3, 4)) {

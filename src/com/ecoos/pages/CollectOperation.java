@@ -17,17 +17,23 @@ public class CollectOperation {
 		// TODO Auto-generated constructor stub
 		this.driver= driver;
 	}
-	public void scrollDown() {
+	public static void scrollDown(WebDriver driver) {
+		try {
 		System.out.print("scroll");
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		 // This  will scroll down the page by  1000 pixel vertical		
-        js.executeScript("window.scrollBy(0,10000)");
+        js.executeScript("scroll(0,500)");
+        Thread.sleep(500);
+	}catch(Exception ex)	{
+		System.out.println("Ex: scrollDown :  "+ex.getMessage());
+	}
 	}
 	
 	public void CheckDP() {
 		try {
 		System.out.println("Check DP");
 		Thread.sleep(1000);
+		((JavascriptExecutor)driver).executeScript("scroll(0,500)");
+		System.out.println("scroll DP");
 		WebElement Section = driver.findElement(CollectOperationLocator.Section);
 		Section.click(); 
 		List<WebElement> Subsection = driver.findElements(CollectOperationLocator.SubSection);
@@ -68,9 +74,9 @@ public class CollectOperation {
 	public void TextDP() {
 		try {
 		Actions.sendKeys(CollectOperationLocator.Textarea,"Test");
-		Actions.Wait(5);
+		Thread.sleep(500);
 		save();
-		Actions.Wait(5);
+		Thread.sleep(500);
 		String s = driver.findElement(CollectOperationLocator.Textarea).getText();
 		Assert.assertEquals(s, "Test");
 		}catch(Exception ex)	{
@@ -94,18 +100,35 @@ public class CollectOperation {
 	}
 	
 	public void MonthlyDP() {
+		try {
 		driver.findElement(CollectOperationLocator.Monthlytextarea).click();
+		Thread.sleep(500);
+		}catch(Exception ex)	{
+			System.out.println("Ex: MonthlyDP :  "+ex.getMessage());
+		  }	
 	}
 	
     public void AnnualDP() {
+    	try {
     	driver.findElement(CollectOperationLocator.Annualtextarea).sendKeys("10");
-		Actions.Wait(6);
+		Thread.sleep(6000);
 		save();
-		Actions.Wait(6);
+		Thread.sleep(6000);
+    	}catch(Exception ex)	{
+			System.out.println("Ex: AnnualDP :  "+ex.getMessage());
+		  }
 	}
     
     public void save() {
+    	try {
     	Actions.click(CollectOperationLocator.SaveBtn);
-	}
-   
-}
+	}catch(Exception ex)	{
+		System.out.println("Ex: Save :  "+ex.getMessage());
+	  }
+    }
+    
+    public void convetToAnnual() {
+    	
+    }
+
+   }

@@ -10,7 +10,11 @@ import com.ecoos.utilities.Actions;
 
 public class CollectTest extends BaseTest {
 	
-	
+	@Test
+	public void UploadLogo() throws InterruptedException {
+		CollectPage  collect = new CollectPage(driver);
+		collect.uploadLogo();
+	}
 	@Test
 	public void Review() throws InterruptedException {
 		CollectPage  collect = new CollectPage(driver);

@@ -2,7 +2,11 @@ package com.ecoos.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.ecoos.locator.AssetMenuLocator;
 import com.ecoos.locator.CollectLocator;
 import com.ecoos.utilities.Actions;
 
@@ -18,7 +22,7 @@ public class CollectPage {
 		try {
 			// open review 
 			Actions.click(CollectLocator.review);
-			Actions.Wait(7);	
+			Thread.sleep(9000);	
 	}catch(Exception e)	{
 		System.out.println("Ex: OpenReview :  "+e.getMessage());
 		
@@ -29,7 +33,8 @@ public class CollectPage {
 		try {
 			// open Analazye 
 			Actions.click(CollectLocator.analyze);
-			Actions.Wait(10);
+			WebDriverWait some_element = new WebDriverWait(driver,100); 
+			some_element.until(ExpectedConditions.visibilityOfElementLocated(CollectLocator.protcolinfo));
 	}catch(Exception e)	{
 		System.out.println("Ex: OpenAnalyze :  "+ e.getMessage());
 		
@@ -41,7 +46,7 @@ public class CollectPage {
 			
 			// open  report 
 			Actions.click(CollectLocator.report);
-			Actions.Wait(7);
+			Thread.sleep(7000);	
 	}catch(Exception e)	{
 		System.out.println("Ex: OpenReport :  "+e.getMessage());
 		
@@ -51,7 +56,7 @@ public class CollectPage {
 		try {
 			// open collect
 			Actions.click(CollectLocator.collect);
-			Actions.Wait(7);
+			Thread.sleep(5000);	
 	}catch(Exception e)	{
 		System.out.println("Ex: OpenCollect :  "+e.getMessage());
 		
@@ -65,7 +70,7 @@ public class CollectPage {
 			WebElement  protcoldropdown = driver.findElement(CollectLocator.protcoldropdown);
 			Select Promenu = new Select(protcoldropdown);
 			Promenu.selectByVisibleText("Israel Pollutant Release and Transfer Register (PRTR)");
-			Actions.Wait(7);
+			Thread.sleep(6000);	
 			
 		}catch(Exception e)	{
 			System.out.println("Ex: FilterByProtcol :  "+e.getMessage());
@@ -79,20 +84,36 @@ public class CollectPage {
 			WebElement  years = driver.findElement(CollectLocator.yearsdropdown);
 			Select yearsmenu= new Select(years);
 			yearsmenu.selectByVisibleText("2014");
-			Actions.Wait(7);
+			Thread.sleep(6000);	
 			
 		}catch(Exception e)	{
 			System.out.println("Ex: FilterByYear :  "+e.getMessage());
 			
 		}
 	}
+	public void uploadLogo() {
+		try {
+			WebElement Logo = driver.findElement(CollectLocator.logo);
+			Logo.click();
+			Thread.sleep(500);
+			WebElement selection_file = driver.findElement(CollectLocator.selection_file);
+			selection_file.sendKeys("c:\\logo_big.png");
+			WebElement uploadBtn = driver.findElement(CollectLocator.uploadBtn);
+			uploadBtn.click();
+			Thread.sleep(1000);
+			
+		}catch(Exception e)	{
+			System.out.println("Ex: uplaod logo :  "+e.getMessage());
+			
+		}
+		
+	}
 	
 	public void OpenCategory() {
 		try {
 			// open any category like Energy (related to protocol and site )
 			Actions.click(CollectLocator.Eng_category);
-			Thread.sleep(6000);
-			//Actions.Wait(7);
+			Thread.sleep(8000);
 		}catch(Exception e)	{
 			System.out.println("Ex: OpenCategory :  "+e.getMessage());
 			

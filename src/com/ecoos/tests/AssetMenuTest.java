@@ -20,7 +20,7 @@ public class AssetMenuTest extends BaseTest {
 	Menu.SetParam();
 	
 	}
-	@Test
+/*	@Test
 	public void SetSingleDp(){
 	AssetMenu Menu = new AssetMenu(driver);
 	Menu.SetSingleDP();;
@@ -30,11 +30,27 @@ public class AssetMenuTest extends BaseTest {
 	public void clickapply(){
 	AssetMenu Menu = new AssetMenu(driver);
 	Menu.ClickApply();
-	}
+	}*/
 	
 	@Test
 	public void SelectAllDPs(){
 	AssetMenu Menu = new AssetMenu(driver);
 	Menu.SelectAllDPs();
+	}
+	@Test
+	public void clickapply(){
+	AssetMenu Menu = new AssetMenu(driver);
+	Menu.ClickApply();
+	}
+	@Test
+	public void OpenSection(){
+	AssetMenu Menu = new AssetMenu(driver);
+	Menu.OpenSection();
+	}
+	
+	@Test
+	public void conevrtMTA() throws Exception{
+	AssetMenu Menu = new AssetMenu(driver);
+	Menu.Convert();
 	}
 }
