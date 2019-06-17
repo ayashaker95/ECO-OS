@@ -6,129 +6,58 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import com.ecoos.locator.CollectOperationLocator;
 import com.ecoos.utilities.Actions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 
 
 public class CollectOperation {
 	WebDriver driver;
 	
-	
-	public CollectOperation(WebDriver driver) {
-		// TODO Auto-generated constructor stub
-		this.driver= driver;
-	}
-	public static void scrollDown(WebDriver driver) {
+	public void scrollDown(By path) {
 		try {
-		System.out.print("scroll");
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("scroll(0,500)");
-        Thread.sleep(500);
-	}catch(Exception ex)	{
-		System.out.println("Ex: scrollDown :  "+ex.getMessage());
-	}
+			Actions.scrollDown(path);
+		} catch (Exception ex) {
+			System.out.println("Ex: scrollDown :  " + ex.getMessage());
+		}
 	}
 	
-	public void CheckDP() {
+	public void CheckDP(By path) {
 		try {
-		System.out.println("Check DP");
 		Thread.sleep(1000);
-		((JavascriptExecutor)driver).executeScript("scroll(0,500)");
-		System.out.println("scroll DP");
-		WebElement Section = driver.findElement(CollectOperationLocator.Section);
-		Section.click(); 
-		List<WebElement> Subsection = driver.findElements(CollectOperationLocator.SubSection);
-		int count = Subsection.size();
-		System.out.println(count);
-		List<WebElement> response = driver.findElements(CollectOperationLocator.response);
-		for(WebElement dp : response) {
-			String format = dp.getAttribute("ng-switch-when");
-			System.out.println(format);
-			switch (format) {
-			   case "1" : System.out.println("case1") ;
-			   case "2" : System.out.println("case2");
-			   case "3" :System.out.println("case3");
-			   case "4" : System.out.println("case4");
-			   case "5" : TextDP();
-			   case "6" : NumericDP();
-			  
-			   }
-		}
+		Actions.clickElement(path);
+		WebElement datapoint = driver.findElement(CollectOperationLocator.datapointResponse);
+		String responseformat = datapoint.getAttribute("type");
+		Assert.assertEquals(responseformat, "radio");
+		Thread.sleep(1000);
 	}catch(Exception ex)	{
-		System.out.println("Ex: Check dP :  "+ex.getMessage());
-	}
+		System.out.println("Ex: Check DP :  "+ex.getMessage());
+	}	
 	}
 	
-	public void RadioDP() {
-		
-	}
-	public void ChechBoxDP() {
-		
-	}
-    public void SelectDP() {
-		
-	}
-    public void MultiSelectDP() {
-		
-  	}
-    
-	public void TextDP() {
+	/*public void Answer() {
 		try {
-		Actions.sendKeys(CollectOperationLocator.Textarea,"Test");
-		Thread.sleep(500);
-		save();
-		Thread.sleep(500);
-		String s = driver.findElement(CollectOperationLocator.Textarea).getText();
-		Assert.assertEquals(s, "Test");
+			WebElement radiolabel  = driver.findElement(CollectOperationLocator.radiolabel);
+			radiolabel.click();
+			Thread.sleep(1000);
+			WebElement save = driver.findElement(CollectOperationLocator.SaveBtn);
+			save.click();
+			
 		}catch(Exception ex)	{
-			System.out.println("Ex: TextDP :  "+ex.getMessage());
+			System.out.println("Ex: Answer :  "+ex.getMessage());
 		}
 	}
-	
-	public void NumericDP() {
+	public void openTools() {
 		try {
 			
-		String Granularity = driver.findElement(CollectOperationLocator.Granularity).getText();
-		System.out.println(Granularity);
-		if (Granularity == "Monthly") {
-			MonthlyDP();
-		}else if (Granularity == "Annual") {
+			driver.findElement(CollectOperationLocator.tools).click();
+			Thread.sleep(600);
+			driver.findElement(CollectOperationLocator.Ref).click();
+			Thread.sleep(600);
+			driver.findElement(CollectOperationLocator.info).click();
 			
-		}
-	   }catch(Exception ex)	{
-		System.out.println("Ex: NumericDP :  "+ex.getMessage());
-	  }		
-	}
-	
-	public void MonthlyDP() {
-		try {
-		driver.findElement(CollectOperationLocator.Monthlytextarea).click();
-		Thread.sleep(500);
 		}catch(Exception ex)	{
-			System.out.println("Ex: MonthlyDP :  "+ex.getMessage());
-		  }	
-	}
+			System.out.println("Ex: tools :  "+ex.getMessage());
+		}
+	}*/
 	
-    public void AnnualDP() {
-    	try {
-    	driver.findElement(CollectOperationLocator.Annualtextarea).sendKeys("10");
-		Thread.sleep(6000);
-		save();
-		Thread.sleep(6000);
-    	}catch(Exception ex)	{
-			System.out.println("Ex: AnnualDP :  "+ex.getMessage());
-		  }
-	}
-    
-    public void save() {
-    	try {
-    	Actions.click(CollectOperationLocator.SaveBtn);
-	}catch(Exception ex)	{
-		System.out.println("Ex: Save :  "+ex.getMessage());
-	  }
-    }
-    
-    public void convetToAnnual() {
-    	
-    }
-
    }

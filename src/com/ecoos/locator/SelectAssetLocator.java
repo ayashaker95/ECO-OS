@@ -8,5 +8,7 @@ public class SelectAssetLocator {
 	public static By Childasset = By.xpath("//label[@for='chkWhole site']");
 	public static By Secondasset = By.xpath("//label[@for='chkMain Stack - 54']");
 	public static By ApplyButton = By.xpath("//button[@class='option-button option-button--main']");
+	public static By assetToolsCollapse = By.xpath("//i[@ng-click='assetToolsCollapse = !assetToolsCollapse']");
+	public static By SelectAssetsButton = By.xpath("//button[@href='/new-select-asset/3']");
 
 }

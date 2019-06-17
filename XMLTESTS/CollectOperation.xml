@@ -1,0 +1,43 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Test suite">
+	<test name="SelectAssetTest">
+		<classes>
+			<class name="com.ecoos.tests.LoginTest">
+				<methods>
+					<include name="ValidLogin">
+						<parameter name="UserName" value="admin@ecoos.co" />
+						<parameter name="Password" value="ecoos6" />
+					</include>
+				</methods>
+			</class>
+			<class name="com.ecoos.tests.HomePageTest">
+				<methods>
+					<include name="OpenCategory" />
+				</methods>
+			</class>
+			<class name="com.ecoos.tests.SelectAssetsTest">
+				<methods>
+					<include name="AssetMenuControl"></include>
+					<include name="SelectSecondChild"></include>
+					<include name="ClickApplyBtn"></include>
+				</methods>
+			</class>
+			<class name="com.ecoos.tests.AssetMenuTest">
+				<methods>
+					<include name="SetParameters"></include>
+					<include name="SelectAllDPs"></include>
+					<!-- <include name="OpenSection"></include> <include name="conevrtMTA"></include> -->
+					<include name="clickapplyBtn"></include>
+				</methods>
+			</class>
+			<class name="com.ecoos.tests.CollectOperationTest">
+				<methods>
+					<include name="scrollDown"></include>
+					<include name="CheckDP"></include>
+				<!-- 	<include name="Answer"></include>
+					<include name="Tools"></include> -->
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite>

@@ -1,118 +1,94 @@
 package com.ecoos.pages;
 
-
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import com.ecoos.utilities.*;
 import com.ecoos.locator.SelectAssetLocator;
+import com.ecoos.utilities.Actions;
+import com.ecoos.utilities.Constants;
 
 public class SelectAsset {
 
 	WebDriver driver;
-	
-	public SelectAsset(WebDriver driver) {
-		this.driver = driver;
-	}
 
-	public void SelectAll () {
+	public void assetControl() {
 		try {
-			
-		//Select All
-			System.out.println("All");
-		    WebElement SelectAll = driver.findElement(SelectAssetLocator.SelectAll);
-			SelectAll.click(); 
-			Actions.Wait3(10);
-			List<WebElement> list = driver.findElements(By.tagName("input"));
-			for(WebElement ele:list.subList( 2, list.size() )){
-			   String className = ele.getAttribute("class");
-			   System.out.println(className);
-			  Assert.assertEquals(className, "ng-pristine ng-untouched ng-valid ng-not-empty", "pass");
+			WebElement AssetToolCollapse = driver.findElement(SelectAssetLocator.assetToolsCollapse);
+			String classname = AssetToolCollapse.getAttribute("Class");
+			if (classname != Constants.className3) {
+				AssetToolCollapse.click();
 			}
-			Actions.Wait3(10);
-		
-		
-		}catch(Exception ex)
-		{
-			System.out.println("Ex:  :  "+ex.getMessage());
-	}
-	}
-	
-	public void Selectasset() {
-		
-		try {
-	//	Select child asset 
-			
-			System.out.println("Child");
-			WebElement SelectAll = driver.findElement(SelectAssetLocator.SelectAll);
-			SelectAll.click();
-			Actions.Wait3(5);
-			WebElement childasset = driver.findElement(SelectAssetLocator.Childasset);
-		    childasset.click();
-		    Actions.Wait3(5);
-		    
-		   List<WebElement> parentasset = driver.findElements(By.tagName("input"));
-	    for(WebElement parent : parentasset.subList(3, 4)) {
-		     String className = parent.getAttribute("class");
-		     System.out.println(className);
-		     Assert.assertEquals(className, "ng-untouched ng-valid ng-not-empty ng-dirty ng-valid-parse");
-		    }
-	
+			WebElement SelectAssetBtn = driver.findElement(SelectAssetLocator.SelectAssetsButton);
+			SelectAssetBtn.click();
+		} catch (Exception e) {
+			System.out.println("Ex: SelectAsset :  " + e.getMessage());
 
-			
-		}catch(Exception ex)	{
-			System.out.println("Ex:  :  "+ex.getMessage());
 		}
-		}
-	
-	public void SelectSecondasset() {
-				try {
-		//	Select second child asset 
-	/*		System.out.println("second");
-			WebElement casset = driver.findElement(SelectAssetLocator.Childasset);
-			casset.click();
-			//Actions.Wait(5);
-			Thread.sleep(6000);
-			
-			WebElement passet = driver.findElement(SelectAssetLocator.Parentasset);
-			passet.click();
-			//Actions.Wait(5);
-			Thread.sleep(5000);*/
-			
-			WebElement Secondasset = driver.findElement(SelectAssetLocator.Secondasset);
-			Secondasset.click();
-			//Actions.Wait(5);
-			Thread.sleep(5000);
-		    
-		   List<WebElement> childasset = driver.findElements(By.tagName("input"));
-		    for(WebElement child : childasset.subList(3,5) ){
-		     String className = child.getAttribute("class");
-		     System.out.println(className);
-		     if (className == "ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched") {
-		     Assert.assertEquals(className, "ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched");
-		     }
-		     else if (className == "ng-untouched ng-valid ng-not-empty ng-dirty ng-valid-parse") {
-		    	 Assert.assertEquals(className, "ng-untouched ng-valid ng-not-empty ng-dirty ng-valid-parse");
-		     }
-		     }
-		}catch(Exception ex)	{
-			System.out.println("Ex: SelectSecondasset :  "+ex.getMessage());
-		}
-		}
-	
-	public void ClickApply()  {
+	}
+
+	public void SelectAll(By path) {
 		try {
-		WebElement applybutton = driver.findElement(SelectAssetLocator.ApplyButton);
-		applybutton.click();
-		Thread.sleep(6000);
-//		Actions.Wait(7);
-		}catch(Exception ex)	{
-			System.out.println("Ex: SelectSecondasset :  "+ex.getMessage());
+			Actions.SelectAssets(path);
+			List<WebElement> list = driver.findElements(By.tagName("input"));
+			for (WebElement ele : list.subList(2, list.size())) {
+				String className = ele.getAttribute("class");
+				System.out.println(className);
+				Assert.assertEquals(className, Constants.className4, "pass");
+			}
+
+		} catch (Exception ex) {
+			System.out.println("Ex: SelectAll :  " + ex.getMessage());
+		}
+	}
+
+	public void SelectChildasset(By path) {
+
+		try {
+			Actions.SelectAssets(SelectAssetLocator.SelectAll);
+			Actions.Wait(path);
+			Actions.SelectAssets(path);
+			List<WebElement> parentasset = driver.findElements(By.tagName("input"));
+			for (WebElement parent : parentasset.subList(3, 4)) {
+				String className = parent.getAttribute("class");
+				System.out.println(className);
+				Assert.assertEquals(className, Constants.className5);
+			}
+
+		} catch (Exception ex) {
+			System.out.println("Ex: SelectChildasset  :  " + ex.getMessage());
+		}
+	}
+
+	public void SelectSecondasset(By path) {
+		try {
+			Actions.SelectAssets(SelectAssetLocator.Parentasset);
+			Actions.SelectAssets(SelectAssetLocator.Childasset);
+			Actions.Wait(path);
+			Actions.SelectAssets(path);
+
+			List<WebElement> childasset = driver.findElements(By.tagName("input"));
+			for (WebElement child : childasset.subList(3, 5)) {
+				String className = child.getAttribute("class");
+				System.out.println(className);
+				if (className == Constants.className6) {
+					Assert.assertEquals(className, Constants.className6);
+				} else if (className == Constants.className7) {
+					Assert.assertEquals(className, Constants.className7);
+				}
+			}
+		} catch (Exception ex) {
+			System.out.println("Ex: SelectSecondasset :  " + ex.getMessage());
+		}
+	}
+	public void ClickApplyBtn(By path) {
+		try {
+			
+			Actions.clickElement(path);
+
+		} catch (Exception ex) {
+			System.out.println("Ex: ClickApplyBtn :  " + ex.getMessage());
 		}
 	}
 }
-
-
-

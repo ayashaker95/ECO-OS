@@ -12,6 +12,6 @@ public class AssetMenuLocator {
 	public static By setAll = By.xpath("//label[@for='chkAll']");
 	public static By inputs = By.xpath("//div[@class='panel-with-collapse-icon--set-params ng-scope ng-isolate-scope panel']/div[@class='panel-collapse collapse']/div[@class='panel-body']/div[@ng-repeat=\"dp in filterDp = (datapoints | filter:vm.search)\"]/div[@class='flex-row flex-space-between set-parameters-data']/div[@class='flex-row flex-align-center']/span/input[@type='checkbox']");
 	public static By section2 = By.xpath("//div[@class=\"ng-scope\"]/p[text()='INDIRECT CONSUMPTION']");
-	public static By Switch = By.xpath("//*[@id=\"accordiongroup-870-824-panel\"]/div/div[2]/div[2]/div[2]/label/span");	                                  
-
+	public static By Switch = By.xpath("//*[@id=\"accordiongroup-870-824-panel\"]/div/div[2]/div[2]/div[2]/label/span");
+	public static By MainstackAsset = By.xpath("//span[contains(text(), 'Main Stack - 54')]");
 }

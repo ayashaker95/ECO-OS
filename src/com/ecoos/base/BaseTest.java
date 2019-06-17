@@ -25,8 +25,6 @@ public class BaseTest {
 		options.addArguments(arguments);
 		String url = PropertyManager.getInstance().getURL();
 		String driverPath = PropertyManager.getInstance().getdriverPath();
-		System.out.println(url);
-		System.out.println(driverPath);
 		System.setProperty("webdriver.chrome.driver", driverPath);
 		driver = new ChromeDriver(options);
 		driver.get(url); 	
@@ -34,13 +32,12 @@ public class BaseTest {
 	  }catch(Exception e)	{
 			System.out.println("Ex: Base :  "+e.getMessage());
 			
-		}
-		  
+		}	  
   }
 
   @AfterSuite
   public void afterSuite() {
 	  System.out.println("Test is finished");
-	// driver.quit();
+	 // driver.quit();
   }
 }
