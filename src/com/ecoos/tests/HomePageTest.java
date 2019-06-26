@@ -1,66 +1,56 @@
 package com.ecoos.tests;
 
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import com.ecoos.base.BaseTest;
 import com.ecoos.locator.HomePageLocator;
 import com.ecoos.pages.HomePage;
-import com.ecoos.utilities.Actions;
 import com.ecoos.utilities.Constants;
+import static com.ecoos.utilities.ReadWriteExcelFile.getExcelDataWithoutHeader;
+
+import java.io.IOException;
 
 public class HomePageTest extends BaseTest {
-
+	
+	
 	@Test
-	public void Review() throws InterruptedException {
-		HomePage review = new HomePage();
-		review.switchMainTabs(HomePageLocator.review);
-		Assert.assertEquals(Actions.getCurrentURL(), Constants.review);
-	}
-
-	@Test
-	public void Analyze() throws InterruptedException {
-		HomePage analyze = new HomePage();
-		analyze.switchMainTabs(HomePageLocator.analyze);
-		Assert.assertEquals(Actions.getCurrentURL(), Constants.analyze);
-	}
-
-	@Test
-	public void Report() throws InterruptedException {
-		HomePage report = new HomePage();
-		report.switchMainTabs(HomePageLocator.report);
-		Assert.assertEquals(Actions.getCurrentURL(), Constants.report);
-	}
-
-	@Test
-	public void Collect() throws InterruptedException {
-		HomePage collect = new HomePage();
-		collect.switchMainTabs(HomePageLocator.collect);
-		Assert.assertEquals(Actions.getCurrentURL(), Constants.collect);
-
+	@Parameters({ "Review", "Analyze", "Report", "Collect" })
+	public void NavigateMenuTabs(String tabName) throws InterruptedException {
+		HomePage navigate = new HomePage();
+		navigate.switchMainTabs((navigate.gereateCategoryXpath(tabName)));
+		Assert.assertEquals(navigate.getCurrentURL(), Constants.Review);
 	}
 
 	@Test
 	public void ProctcolTest() {
 		HomePage collect = new HomePage();
-		collect.dropDownList(HomePageLocator.protcoldropdown, Constants.protocolName);
-		String text = Actions.getText(HomePageLocator.protcoldropdown);
-		if (text.contains(Constants.protocolName))
+		collect.seletcProctol(HomePageLocator.protcoldropdown, Constants.ProtocolName);
+		String text = collect.getElementText(HomePageLocator.protcoldropdown);
+		if (text.contains(Constants.ProtocolName))
 			Assert.assertTrue(true);
 	}
 
 	@Test
 	public void YearsTest() {
 		HomePage collect = new HomePage();
-		collect.dropDownList(HomePageLocator.yearsdropdown, Constants.year);
-		String text = Actions.getText(HomePageLocator.yearsdropdown);
-		if (text.contains(Constants.year))
+		collect.seletcYear(HomePageLocator.yearsdropdown, Constants.Year);
+		String text = collect.getElementText(HomePageLocator.yearsdropdown);
+		if (text.contains(Constants.Year))
 			Assert.assertTrue(true);
 	}
 
-	@Test
-	public void OpenCategory() {
+	@Test(dataProvider = "ValidDataProvider1")
+	public void OpenCategory(String categoryName) {
 		HomePage collect = new HomePage();
-		collect.OpenCategory(HomePageLocator.Eng_category);
-		Assert.assertEquals(Actions.getCurrentURL(),Constants.eng_category);
+		collect.OpenCategory((collect.gereateCategoryXpath(categoryName)));
+		Assert.assertEquals(collect.getCurrentURL(), Constants.Eng_category);
+	}
+
+	@DataProvider
+	public Object[][] ValidDataProvider1() throws IOException {
+
+		return getExcelDataWithoutHeader("Categories-names.xls", "Sheet1");
 	}
 }

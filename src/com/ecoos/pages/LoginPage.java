@@ -1,21 +1,24 @@
 package com.ecoos.pages;
 
-import org.openqa.selenium.WebDriver;
-import com.ecoos.locator.LoginLocator;
-import com.ecoos.utilities.Actions;
+import org.openqa.selenium.By;
 
-public class LoginPage {
-	WebDriver driver;
+import com.ecoos.locator.LoginLocator;
+import com.ecoos.pages.Actions;
+
+public class LoginPage extends Actions {
+
+	public void clearLoginFields() {
+		driver.findElement(LoginLocator.UserName).clear();
+		driver.findElement(LoginLocator.Password).clear();
+	}
 
 	public void loginToSite(String UserName, String Password) {
 
 		try {
 
-			Actions.sendKeys(LoginLocator.UserName, UserName);
-			Actions.sendKeys(LoginLocator.Password, Password);
-			Actions.clickElement(LoginLocator.LoginButton);
-			Actions.clear(LoginLocator.Password);
-			Actions.clear(LoginLocator.UserName);
+			sendText(LoginLocator.UserName, UserName);
+			sendText(LoginLocator.Password, Password);
+			clickElement(LoginLocator.LoginButton);
 
 		} catch (Exception e) {
 			System.out.println("Ex: Login :  " + e.getMessage());
@@ -23,3 +26,5 @@ public class LoginPage {
 		}
 	}
 }
+
+//div[@class='collect-categories']/div[contains(@class,"collect-category" + value + ")]"

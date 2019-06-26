@@ -2,40 +2,41 @@ package com.ecoos.pages;
 
 import java.util.List;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+
+import com.ecoos.locator.HomePageLocator;
 import com.ecoos.locator.SelectAssetLocator;
-import com.ecoos.utilities.Actions;
 import com.ecoos.utilities.Constants;
 
-public class SelectAsset {
-
-	WebDriver driver;
+public class SelectAsset extends Actions {
 
 	public void assetControl() {
+
 		try {
-			WebElement AssetToolCollapse = driver.findElement(SelectAssetLocator.assetToolsCollapse);
-			String classname = AssetToolCollapse.getAttribute("Class");
-			if (classname != Constants.className3) {
+			boolean visible = driver.findElement(SelectAssetLocator.SelectAssetsButton).isDisplayed();
+			if (visible) {
+				WebElement SelectAssetBtn = driver.findElement(SelectAssetLocator.SelectAssetsButton);
+				SelectAssetBtn.click();
+			} else {
+				WebElement AssetToolCollapse = driver.findElement(SelectAssetLocator.assetToolsCollapse);
 				AssetToolCollapse.click();
+
 			}
-			WebElement SelectAssetBtn = driver.findElement(SelectAssetLocator.SelectAssetsButton);
-			SelectAssetBtn.click();
 		} catch (Exception e) {
-			System.out.println("Ex: SelectAsset :  " + e.getMessage());
+			System.out.println("Ex: assetControl :  " + e.getMessage());
 
 		}
 	}
 
 	public void SelectAll(By path) {
 		try {
-			Actions.SelectAssets(path);
+			clickElement(path);
 			List<WebElement> list = driver.findElements(By.tagName("input"));
 			for (WebElement ele : list.subList(2, list.size())) {
 				String className = ele.getAttribute("class");
 				System.out.println(className);
-				Assert.assertEquals(className, Constants.className4, "pass");
+				Assert.assertEquals(className, Constants.ClassName4, "pass");
 			}
 
 		} catch (Exception ex) {
@@ -46,14 +47,14 @@ public class SelectAsset {
 	public void SelectChildasset(By path) {
 
 		try {
-			Actions.SelectAssets(SelectAssetLocator.SelectAll);
-			Actions.Wait(path);
-			Actions.SelectAssets(path);
+			clickElement(SelectAssetLocator.SelectAll);
+			Wait(path, 5);
+			clickElement(path);
 			List<WebElement> parentasset = driver.findElements(By.tagName("input"));
 			for (WebElement parent : parentasset.subList(3, 4)) {
 				String className = parent.getAttribute("class");
 				System.out.println(className);
-				Assert.assertEquals(className, Constants.className5);
+				Assert.assertEquals(className, Constants.ClassName5);
 			}
 
 		} catch (Exception ex) {
@@ -63,29 +64,30 @@ public class SelectAsset {
 
 	public void SelectSecondasset(By path) {
 		try {
-			Actions.SelectAssets(SelectAssetLocator.Parentasset);
-			Actions.SelectAssets(SelectAssetLocator.Childasset);
-			Actions.Wait(path);
-			Actions.SelectAssets(path);
+			clickElement(SelectAssetLocator.Parentasset);
+			clickElement(SelectAssetLocator.Childasset);
+			Wait(path, 5);
+			clickElement(path);
 
 			List<WebElement> childasset = driver.findElements(By.tagName("input"));
 			for (WebElement child : childasset.subList(3, 5)) {
 				String className = child.getAttribute("class");
 				System.out.println(className);
-				if (className == Constants.className6) {
-					Assert.assertEquals(className, Constants.className6);
-				} else if (className == Constants.className7) {
-					Assert.assertEquals(className, Constants.className7);
+				if (className == Constants.ClassName6) {
+					Assert.assertEquals(className, Constants.ClassName6);
+				} else if (className == Constants.ClassName7) {
+					Assert.assertEquals(className, Constants.ClassName7);
 				}
 			}
 		} catch (Exception ex) {
 			System.out.println("Ex: SelectSecondasset :  " + ex.getMessage());
 		}
 	}
+
 	public void ClickApplyBtn(By path) {
 		try {
-			
-			Actions.clickElement(path);
+
+			clickElement(path);
 
 		} catch (Exception ex) {
 			System.out.println("Ex: ClickApplyBtn :  " + ex.getMessage());
